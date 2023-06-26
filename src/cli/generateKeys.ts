@@ -1,5 +1,5 @@
-const { generateKeyPairSync } = require('crypto');
-const { writeFileSync } = require('fs');
+import { generateKeyPairSync } from 'crypto';
+import { writeFileSync } from 'fs';
 
 export async function generateKeys({
   publicKeyPath,

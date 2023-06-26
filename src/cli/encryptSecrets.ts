@@ -1,5 +1,4 @@
 import { publicEncrypt, randomBytes, createCipheriv } from 'crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'path';
 import { ALGORITHM } from '../constants';
 
@@ -19,7 +18,7 @@ const encrypt = (toEncrypt, publicKey) => {
   return `${encryptedSecret}:${iv.toString('hex')}:${encrypted.toString('hex')}`;
 };
 
-export const encryptSecrets = (config: Object, publicKey: string) => {
+export const encryptSecrets = (config: object, publicKey: string) => {
   const configPath = path.join(__dirname, '../secrets/production/config.json');
 
   const keys: string[] = [];

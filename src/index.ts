@@ -3,8 +3,8 @@ import { privateDecrypt, createDecipheriv } from 'crypto';
 import { ALGORITHM } from './constants';
 
 const getPrivateKey = (file: string) => {
+  if (file && existsSync(file)) return readFileSync(file, 'utf-8');
   if (process.env.SCRT_PRIVATE_KEY) return process.env.SCRT_PRIVATE_KEY;
-  if (existsSync(file)) return readFileSync(file, 'utf-8');
 
   return null;
 };
@@ -28,7 +28,7 @@ export function scrt<T = any>({
   privateKey,
 }: {
   secretsFile?: string;
-  secrets?: string;
+  secrets?: string | object;
   privateKeyFile?: string;
   privateKey?: string;
 }) {
@@ -44,7 +44,23 @@ export function scrt<T = any>({
     throw new Error('Either secretsFile or secrets must be provided');
   }
 
-  const secretsContent = JSON.parse(secrets || readFileSync(secretsFile, 'utf-8'));
+  if (secretsFile && !existsSync(secretsFile)) {
+    throw new Error(`Secrets file not found: ${secretsFile}`);
+  }
+
+  let secretsContent = '';
+  try {
+    if (secrets && typeof secrets === 'string') {
+      secretsContent = JSON.parse(secrets);
+    } else if (secrets && typeof secrets === 'object') {
+      secretsContent = JSON.parse(JSON.stringify(secrets));
+    } else if (secretsFile) {
+      if (!existsSync(secretsFile)) throw new Error(`Secrets file not found: ${secretsFile}`);
+      secretsContent = JSON.parse(readFileSync(secretsFile, 'utf-8'));
+    }
+  } catch (e) {
+    throw new Error(`Invalid secrets`);
+  }
 
   const decryptRecursive = (obj: any) => {
     Object.keys(obj).forEach((key) => {

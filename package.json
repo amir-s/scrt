@@ -28,11 +28,13 @@
     "secret manager"
   ],
   "author": "Amir Saboury",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amir-s/scrt.git"
   },
+  "readme": "README.md",
+  "homepage": "https://github.com/amir-s/scrt#readme",
   "devDependencies": {
     "@types/jest": "^29.5.2",
     "jest": "^29.5.0",

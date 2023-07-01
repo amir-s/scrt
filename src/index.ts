@@ -1,18 +1,19 @@
 import { readFileSync, existsSync } from 'fs';
 import { privateDecrypt, createDecipheriv } from 'crypto';
-import { ALGORITHM } from './constants';
+import { ALGORITHM, PRIVATE_KEY_PASSPHRASE } from './constants';
 
 const getPrivateKey = (file: string) => {
   if (file && existsSync(file)) return readFileSync(file, 'utf-8');
-  if (process.env.SCRT_PRIVATE_KEY) return process.env.SCRT_PRIVATE_KEY;
-
   return null;
 };
 
 const decrypt = (toDecrypt: string, privateKey: string) => {
   const [encryptedSecret, iv, encrypted] = toDecrypt.split(':');
 
-  const secret = privateDecrypt({ key: privateKey, passphrase: '' }, Buffer.from(encryptedSecret, 'hex'));
+  const secret = privateDecrypt(
+    { key: privateKey, passphrase: PRIVATE_KEY_PASSPHRASE },
+    Buffer.from(encryptedSecret, 'hex'),
+  );
 
   const decipher = createDecipheriv(ALGORITHM, secret, Buffer.from(iv, 'hex'));
 

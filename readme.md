@@ -2,6 +2,9 @@
 
 `scrt` is an npm package that provides a simple way to manage secrets in your applications. It allows you to easily add secrets and encrypt them, ensuring the security of sensitive information. The encrypted secrets can be decrypted in production using a private key.
 
+[![npm version](https://badge.fury.io/js/scrt.svg)](https://badge.fury.io/js/scrt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Installation
 
 ```shell
@@ -40,6 +43,7 @@ import encryptedSecrets from './secrets.json';
 
 const secrets = scrt({
   privateKeyFile: '/root/keys/privateKey.pem',
+  // privateKey: process.env.SECRETS_PRIVATE_KEY // or use the private key directly
   secrets: encryptedSecrets,
 });
 
@@ -49,10 +53,6 @@ console.log(secrets);
 In the code above, you pass the private key to the `scrt` function using either the `privateKeyFile` option, which points to the path of the private key file, or the `privateKey` option, which provides the PEM-formatted key directly.
 
 You can provide the secrets to decrypt using the `secretsFile` option, which points to the path of the secrets JSON file, or by providing the JSON-serialized value directly via the `secrets` option.
-
-## Private Key via Environment Variable
-
-Alternatively, you can provide the PEM-formatted private key using the `SCRT_PRIVATE_KEY` environment variable. This allows you to conveniently pass the private key to `scrt` without explicitly specifying it in your code.
 
 ## Example secrets.json file
 

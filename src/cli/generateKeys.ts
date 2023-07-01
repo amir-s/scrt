@@ -1,5 +1,13 @@
 import { generateKeyPairSync } from 'crypto';
 import { writeFileSync } from 'fs';
+import {
+  KEY_FORMAT,
+  KEY_PAIR_TYPE,
+  KEY_TYPE,
+  MODULES_LENGTH,
+  PRIVATE_KEY_CIPHER,
+  PRIVATE_KEY_PASSPHRASE,
+} from '../constants';
 
 export async function generateKeys({
   publicKeyPath,
@@ -8,17 +16,17 @@ export async function generateKeys({
   publicKeyPath: string;
   privateKeyPath: string;
 }) {
-  const { privateKey, publicKey } = generateKeyPairSync('rsa', {
-    modulusLength: 4096,
+  const { privateKey, publicKey } = generateKeyPairSync(KEY_PAIR_TYPE, {
+    modulusLength: MODULES_LENGTH,
     publicKeyEncoding: {
-      type: 'pkcs1',
-      format: 'pem',
+      type: KEY_TYPE,
+      format: KEY_FORMAT,
     },
     privateKeyEncoding: {
-      type: 'pkcs1',
-      format: 'pem',
-      cipher: 'aes-256-cbc',
-      passphrase: '',
+      type: KEY_TYPE,
+      format: KEY_FORMAT,
+      cipher: PRIVATE_KEY_CIPHER,
+      passphrase: PRIVATE_KEY_PASSPHRASE,
     },
   });
 

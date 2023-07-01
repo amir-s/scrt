@@ -70,6 +70,8 @@ Here is an example of how the `secrets.json` file might look:
 }
 ```
 
+Note that you can also have nested arrays and objects in there.
+
 After running `npx scrt encrypt ./secrets.json ./keys/scrt.pem`, this is what we get:
 
 ```shell

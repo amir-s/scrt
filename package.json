@@ -1,6 +1,6 @@
 {
   "name": "scrt",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A simple secret manager",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -94,3 +94,32 @@ $ scrt encrypt ./secrets.json ./keys/scrt.pem
   }
 }
 ```
+
+## API
+
+### CLI
+
+- `npx scrt keys` - generate a new key pair. user will be prompted about the path to save the keys in.
+- `npx scrt encrypt <path to json file to be encrypted> <path to public key pem file>` - encrypt the json values using the provided key.
+
+### Node
+
+```typescript
+scrt<T>(options: {
+  publicKeyPath?: string;
+  privateKeyPath?: string;
+  publicKey?: string;
+  privateKey?: string;
+}): T
+```
+
+- `publicKeyPath` - path to the public key file.
+- `privateKeyPath` - path to the private key file.
+- `publicKey` - public key string.
+- `privateKey` - private key string.
+
+Both public and private keys can be provided as either a path to a file or as a string. `srct` will return the decrypted object.
+
+### License
+
+MIT
